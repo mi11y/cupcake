@@ -4,4 +4,4 @@ cd build
 ninja
 sudo ninja install
 cd ..
-
+sudo update-icon-caches /usr/share/icons/*

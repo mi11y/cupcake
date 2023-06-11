@@ -1,0 +1,1 @@
+flatpak remove com.github.mi11y.cupcake
