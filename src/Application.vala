@@ -7,7 +7,7 @@ public class Cupcake : Gtk.Application {
     }
     
     protected override void activate() {
-        var login_button = new Gtk.Button.with_label("Sign In") {
+        var login_button = new Gtk.Button.with_label(_("Sign In")) {
             margin_top = 12,
             margin_bottom = 12,
             margin_start = 12,
@@ -15,14 +15,14 @@ public class Cupcake : Gtk.Application {
         };
         
         login_button.clicked.connect(() => {
-            login_button.label = "Login?";
+            login_button.label = _("Login?");
             login_button.sensitive = false;
         });
         
         var main_window = new Gtk.ApplicationWindow(this) {
             default_height = 500,
             default_width = 500,
-            title = "Cupcake"
+            title = _("Cupcake")
         };
         main_window.child = login_button;
         main_window.present();
