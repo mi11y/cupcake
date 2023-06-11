@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.github.mi11y.cupcake</id>
+  
+  <name>Cupcake</name>
+  <summary>A Telegram Messenger for Elementary OS</summary>
+  
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT-Modern-Variant</project_license>
+  
+  <releases>
+      <release version="1.0.0" date="2022-09-08">
+        <description>
+          <p>Initial release, includes features such as:</p>
+          <ul>
+            <li>Application can be launched</li>
+          </ul>
+        </description>
+      </release>
+  </releases>
+  
+  <description>
+    <p>
+      A Telegram Messenger written for Elementary OS users!
+    </p>
+  </description>
+  
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-chat">intense</content_attribute>
+    <content_attribute id="social-info">mild</content_attribute>
+    <content_attribute id="social-audio">intense</content_attribute>
+    <content_attribute id="social-location">intense</content_attribute>
+    <content_attribute id="social-contacts">intense</content_attribute>
+  </content_rating>
+  <launchable type="desktop-id">com.github.mi11y.cupcake.desktop</launchable>
+</component>

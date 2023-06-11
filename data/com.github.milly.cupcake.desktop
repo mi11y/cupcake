@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=Cupcake
+Comment=A Telegram Messenger for Elementary OS
+Categories=AudioVideo;Amusement;
+
+Icon=cupcake
+Exec=cupcake
+Terminal=false
