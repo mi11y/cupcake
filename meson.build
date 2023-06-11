@@ -13,7 +13,7 @@ executable(
 
 # Install our .desktop file so the Applications Menu will see it
 install_data(
-    'data' / 'cupcake.desktop',
+    'data' / 'com.github.mi11y.cupcake.desktop',
     install_dir: get_option('datadir') / 'applications',
     rename: meson.project_name() + '.desktop'
 )

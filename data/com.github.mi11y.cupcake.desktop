@@ -6,6 +6,7 @@ Name=Cupcake
 Comment=A Telegram Messenger for Elementary OS
 Categories=AudioVideo;Amusement;
 
-Icon=cupcake
-Exec=cupcake
+Icon=com.github.mi11y.cupcake
+Exec=com.github.mi11y.cupcake
 Terminal=false
+
