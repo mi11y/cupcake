@@ -7,12 +7,20 @@ i18n = import('i18n')
 # Set our translation domain
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 
+vapi_dir = meson.current_source_dir() / 'vapi'
+
+add_project_arguments(['--vapidir', vapi_dir], language: 'vala')
+
 # Create a new executable, list the files we want to compile, list the dependencies we need, and install
 executable(
     meson.project_name(),
-    'src' / 'Application.vala',
+    [
+        'src' / 'Application.vala',
+        'src' / 'TelegramLib.vala',
+    ],
     dependencies: [
-        dependency('gtk4')
+        dependency('gtk4'),
+        dependency('tdjson'),
     ],
     install: true
 )
