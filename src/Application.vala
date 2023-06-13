@@ -22,7 +22,7 @@ public class Cupcake : Gtk.Application {
         main_window.present();
     }
 
-    public void updateLabelText(string new_label) {
+    public void update_label_text(string new_label) {
         message_text.set_label(new_label);
     }
 
