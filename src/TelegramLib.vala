@@ -2,21 +2,32 @@ public errordomain TelegramLibError {
 	INVALID_FORMAT
 }
 
-public class TelegramLib {
+public class TelegramLib : Object {
 
+    // Main Window
+    private Cupcake.MainWindow cupcake_window = null;
+
+    // State Classes
+    private AuthorizationState authorization_state;
+
+    // Constants
     public const double WAIT_TIMEOUT = 10.0;
+
+    // Identifiers
     private int client_id = 0;
 
-    private Cupcake cupcake_app = null;
+    public TelegramLib(Cupcake.MainWindow cupcake_window) { 
+        Object();
+    }
 
-    public TelegramLib(Cupcake cupcake_app) { 
-        this.cupcake_app = cupcake_app;
-
+    construct {
         // We need a client id (aka instance id) to deal with TDLib. 
         client_id = TDJsonApi.create_client_id();
 
+        authorization_state = new AuthorizationState(client_id);
+
         //  Disable default TDLib log stream
-        string setLogResult = TDJsonApi.execute("{\"@type\": \"setLogStream\", \"log_stream\": {\"@type\": \"logStreamEmpty\"}}");
+        TDJsonApi.execute("{\"@type\": \"setLogStream\", \"log_stream\": {\"@type\": \"logStreamEmpty\"}}");
     
         //  Set log callback 
         TDJsonApi.set_log_message_callback(1024, (TDJsonApi.log_message_callback_ptr) log_callback);
@@ -37,7 +48,7 @@ public class TelegramLib {
                 Json.Node root_node = json_parser.get_root();
                 process(root_node);
             } catch (Error e) {
-                cupcake_app.update_label_text(e.message);
+                cupcake_window.update_label_text(e.message);
             }
         }
     }
@@ -52,31 +63,13 @@ public class TelegramLib {
         string response_type = json_object.get_string_member("@type");
         switch (response_type) {
             case "updateAuthorizationState":
-                Json.Object? authorizaation_state = json_object.get_object_member("authorization_state");
-                if(authorizaation_state != null) {
-                    handle_update_authorization_state((!) authorizaation_state);
-                }
+                authorization_state.handle_update_authorization_state(json_object);
                 break;
             default:
                 break;
         }
     }
 
-    private void handle_update_authorization_state(Json.Object authorization_state) {
-        Json.Node? authorization_type = authorization_state.get_member("@type");
-
-        if(authorization_type == null) { return; }
-
-        switch ((!)authorization_type.get_string()) {
-            case "authorizationStateWaitTdlibParameters":
-                SetTdLibParameters set_td_lib_parameters = new SetTdLibParameters();
-                string set_td_lib_parameters_json = set_td_lib_parameters.to_json();
-                TDJsonApi.send(client_id, set_td_lib_parameters_json);
-                break;
-            default:
-                break;
-        }
-    }
 
     public static void log_callback(int log_level, string message){
         print("LOG: "+ message + "\n");

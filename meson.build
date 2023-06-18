@@ -16,9 +16,11 @@ executable(
     meson.project_name(),
     [
         'src' / 'Application.vala',
+        'src' / 'MainWindow.vala',
         'src' / 'TelegramLib.vala',
         'src' / 'TDLib' / 'TdLibFunction.vala',
         'src' / 'TDLib' / 'SetTdLibParameters.vala',
+        'src' / 'TDLib' / 'AuthorizationState.vala',
     ],
     dependencies: [
         dependency('gtk4'),

@@ -1,4 +1,4 @@
-public class SetTdLibParameters {
+public class SetTdLibParameters : Object {
     public string database_directory { get; set; }
     public string files_directory { get; set; }
     public string api_id { get; set; }
@@ -15,7 +15,10 @@ public class SetTdLibParameters {
     public bool use_secret_chats { get; set; }
     public bool use_test_dc { get; set; }
 
-    public SetTdLibParameters() {
+    public SetTdLibParameters() {}
+
+    construct {
+
         use_test_dc = true;
         database_directory = "";
         files_directory = "";
@@ -31,7 +34,7 @@ public class SetTdLibParameters {
         application_version = "1.0.0";
         enable_storage_optimizer = true;
         ignore_file_names = true;
-
+   
         string? maybe_api_id = GLib.Environment.get_variable("CUPCAKE_TG_API_ID");
         string? maybe_api_hash = GLib.Environment.get_variable("CUPCAKE_TG_API_HASH");
         if(maybe_api_id != null) {
@@ -45,6 +48,7 @@ public class SetTdLibParameters {
         } else {
             print("[WARN][TdLibParameters] CUPCAKE_TG_API_HASH Not defined.\n");
         }
+
     }
     
     public string to_json() {
