@@ -18,15 +18,17 @@ executable(
         'src' / 'Application.vala',
         'src' / 'MainWindow.vala',
         'src' / 'TelegramLib.vala',
-        'src' / 'TDLib' / 'TdLibFunction.vala',
         'src' / 'TDLib' / 'SetTdLibParameters.vala',
         'src' / 'TDLib' / 'AuthorizationState.vala',
+        'src' / 'Views' / 'WelcomeView.vala',
     ],
     dependencies: [
         dependency('gtk4'),
         dependency('tdjson'),
         dependency('json-glib-1.0'),
         dependency('gee-0.8'),
+        dependency('granite-7'),
+        dependency('libadwaita-1'),
     ],
     install: true
 )

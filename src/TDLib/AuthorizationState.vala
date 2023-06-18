@@ -2,6 +2,10 @@ public class AuthorizationState : Object {
 
     private int client_id { get; set; }
 
+    // Signals
+    public signal void waiting_for_a_response ();
+    public signal void finished_waiting ();
+
     public AuthorizationState(int client_id) {
         this.client_id = client_id;
     }
@@ -17,7 +21,6 @@ public class AuthorizationState : Object {
 
     private void process_authorization_state(Json.Object authorization_state) {
         Json.Node? authorization_type = authorization_state.get_member("@type");
-        print("\n\n\n%s\n\n\n", authorization_type.get_string());
         if(authorization_type == null) { return; }
 
         switch ((!)authorization_type.get_string()) {
@@ -25,11 +28,21 @@ public class AuthorizationState : Object {
                 SetTdLibParameters set_td_lib_parameters = new SetTdLibParameters();
                 string set_td_lib_parameters_json = set_td_lib_parameters.to_json();
                 TDJsonApi.send(client_id, set_td_lib_parameters_json);
+                begin_waiting ();
                 break;
             case "authorizationStateWaitPhoneNumber":
+                done_waiting ();
                 break;
             default:
                 break;
         }
+    }
+
+    private void begin_waiting () {
+        waiting_for_a_response ();
+    }
+
+    private void done_waiting () {
+        finished_waiting ();
     }
 }

@@ -16,6 +16,10 @@ public class TelegramLib : Object {
     // Identifiers
     private int client_id = 0;
 
+    // Signals
+    public signal void waiting_for_telegram ();
+    public signal void done_waiting_for_telegram ();
+
     public TelegramLib(Cupcake.MainWindow cupcake_window) { 
         Object();
     }
@@ -25,6 +29,8 @@ public class TelegramLib : Object {
         client_id = TDJsonApi.create_client_id();
 
         authorization_state = new AuthorizationState(client_id);
+        authorization_state.waiting_for_a_response.connect (forward_waiting_signal);
+        authorization_state.finished_waiting.connect (forward_done_waiting_signal);
 
         //  Disable default TDLib log stream
         TDJsonApi.execute("{\"@type\": \"setLogStream\", \"log_stream\": {\"@type\": \"logStreamEmpty\"}}");
@@ -68,6 +74,14 @@ public class TelegramLib : Object {
             default:
                 break;
         }
+    }
+
+    private void forward_waiting_signal () {
+        waiting_for_telegram ();
+    }
+
+    private void forward_done_waiting_signal () {
+        done_waiting_for_telegram ();
     }
 
 
